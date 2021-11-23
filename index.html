@@ -7,6 +7,15 @@
   <title>Toposort</title>
   <style>
 
+    .post-container {
+      display: block;
+      margin-top: 0 px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+      max-width: 420px;
+    }
+
     .aligncenter {
       display: block;
       margin-top: 0 px;
@@ -27,6 +36,7 @@
       line-height: 1.55;
       font-size: 16px;
       font-family: Trebuchet MS, Helvetica, sans-serif;
+      max-width: 420px;
     }
 
     .figlabel {
@@ -52,60 +62,60 @@
 </head>
 
 <body>
-<div>
-  <h1 class="section-header">Kahn's Algorithm</h2>
+  <div class="post-container">
+    <h1 class="section-header">Kahn's Algorithm</h2>
 
-  <p class="ptext"> Start by identifying all the nodes that have no
-  dependencies (incoming edges), and add those nodes to the candidates
-  stack.</p>
+    <p class="ptext"> Start by identifying all the nodes that have no
+    dependencies (incoming edges), and add those nodes to the
+    <i>candidates</i> stack.</p>
 
-  <div>
-    <video
-      class="aligncenter"
-      poster=""
-      width="320"
-      height="210"
-      controls
-      loop="true"
-      muted
-      webkit-playsinline
-      playsinline
-    >
-      <source src="./media/Untitled_1.mp4" type="video/mp4">
-      Your browser does not support playing videos
-    </video>
+    <div>
+      <video
+        class="aligncenter"
+        poster=""
+        width="320"
+        height="210"
+        controls
+        loop="true"
+        muted
+        webkit-playsinline
+        playsinline
+      >
+        <source src="./media/Untitled_1.mp4" type="video/mp4">
+        Your browser does not support playing videos
+      </video>
+    </div>
+    <div>
+      <div class="figlabel"><strong>Fig 1.</strong> Initializing candidates to process</div>
+    </div>
+
+    <p class="ptext">For every candidate, remove each of the candidate's
+    outgoing edges from the graph, then add the candidate to the
+    solution. When you remove a candidate's edge, if the child node the
+    edge is connected to has no incoming edges, then add it to the
+    <i>candidates</i> stack.</p>
+
+    <div>
+      <video
+        class="aligncenter"
+        poster=""
+        width="320"
+        height="210"
+        controls
+        loop="true"
+        muted
+        webkit-playsinline
+        playsinline
+      >
+        <source src="./media/Untitled_2.mp4" type="video/mp4">
+        Your browser does not support playing videos
+      </video>
+    </div>
+    <div>
+      <div class="figlabel"><strong>Fig 2.</strong> Processing candidates to find solution</div>
+    </div>
+
   </div>
-  <div>
-    <div class="figlabel"><strong>Fig 1.</strong> Initializing candidates to process</div>
-  </div>
-
-  <p class="ptext">For every candidate, remove each of the candidate's
-  outgoing edges from the graph, and add the candidate to the
-  solution. When you remove a candidate's edge, if the child node the
-  edge is connected to has no incoming edges, then add it to the
-  candidates stack.</p>
-
-  <div>
-    <video
-      class="aligncenter"
-      poster=""
-      width="320"
-      height="210"
-      controls
-      loop="true"
-      muted
-      webkit-playsinline
-      playsinline
-    >
-      <source src="./media/Untitled_2.mp4" type="video/mp4">
-      Your browser does not support playing videos
-    </video>
-  </div>
-  <div>
-    <div class="figlabel"><strong>Fig 2.</strong> Processing candidates to find solution</div>
-  </div>
-
-</div>
 </body>
 
 </html>
