@@ -4,12 +4,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chu are you? – mathematical fantasies</title>
+  <title>Toposort</title>
+  <style>
+
+    .aligncenter {
+      display: block;
+      margin-top: 0 px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+    }
+
+    .section-header {
+      font-size: 30px;
+      font-family: Trebuchet MS, Helvetica, sans-serif;
+      font-weight: 500;
+    }
+
+    .ptext {
+      color: black;
+      margin: 0 0 15px;
+      line-height: 1.55;
+      font-size: 16px;
+      font-family: Trebuchet MS, Helvetica, sans-serif;
+    }
+
+    .figlabel {
+      text-align: center;
+      color: black;
+      font-size: 12px;
+      font-family: Trebuchet MS, Helvetica, sans-serif;
+      font-style: italic;
+      margin: 4px auto 20px auto;
+      font-weight: 300;
+    }
+
+    .figlabel2 {
+      display: block;
+      color: black;
+      font-size: 12px;
+      font-family: Trebuchet MS, Helvetica, sans-serif;
+      margin: 10px auto 18px auto;
+      width: 250px;
+      font-style: italic;
+    }
+  </style>
 </head>
 
 <body>
 <div>
-  <p>Hello World</p>
+  <h1 class="section-header">Kahn's Algorithm</h2>
+
+  <p class="ptext"> Start by identifying all the nodes that have no
+  dependencies (incoming edges), and add those nodes to the candidates
+  stack.</p>
+
+  <div>
+    <video class="aligncenter" width="320" height="210" autoplay controls loop="true" muted>
+      <source src="./media/Untitled_1.mp4" type="video/mp4">
+      Your browser does not support playing videos
+    </video>
+  </div>
+  <div>
+    <div class="figlabel"><strong>Fig 1.</strong> Initializing candidates to process</div>
+  </div>
+
+  <p class="ptext">For every candidate, remove each of the candidate's
+  outgoing edges from the graph, and add the candidate to the
+  solution. When you remove a candidate's edge, if the child node the
+  edge is connected to has no incoming edges, then add it to the
+  candidates stack.</p>
+
+  <div>
+    <video class="aligncenter" width="320" height="210" autoplay controls loop="true" muted>
+      <source src="./media/Untitled_2.mp4" type="video/mp4">
+      Your browser does not support playing videos
+    </video>
+  </div>
+  <div>
+    <div class="figlabel"><strong>Fig 2.</strong> Processing candidates to find solution</div>
+  </div>
+
 </div>
 </body>
 
