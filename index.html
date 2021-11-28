@@ -22,11 +22,19 @@
       font-weight: Bold;
       font-style: normal;
       font-size: 18px;
-      letter-spacing: 2px;
-      padding: 4px;
+      letter-spacing: 1px;
+      padding: 4px 4px 4px 4px;
       text-align: center;
+      color: white;
+      /*background: hsl(0deg 83% 61%); */
+      background: hsl(212deg 72% 54%);
+      border-radius: 3px;
+
+      /*
+      background: hsl(0deg 76% 61%);
+      color: hsl(212deg 72% 54%);
       color: #666666;
-      /* color: #8f8f8f; */
+       color: #8f8f8f; */
       /* background: #fbfbfb;
       border: 1px solid #eaeaea;
       */
@@ -95,7 +103,8 @@
   <div class="header-container">
     <!--<div class="header-title">toposort</div> -->
     <!--<div class="header-seperator">◎●◇●◲TOPOSORT◱●◇●◎</div> -->
-    <div class="header-seperator">◇◇◇TOPOSORT◇◇◇</div>
+    <!--<div class="header-seperator">◇◇◇TOPOSORT◇◇◇</div>-->
+    <div class="header-seperator">toposort</div>
 
   </div>
 
@@ -108,12 +117,13 @@
 
     <div>
       <video
+        id="video1"
         class="aligncenter"
         poster=""
         width="320"
         height="210"
-        controls
         loop="false"
+        autoplay
         muted
         webkit-playsinline
         playsinline
@@ -121,6 +131,10 @@
         <source src="./media/Untitled_1.mp4" type="video/mp4">
         Your browser does not support playing videos
       </video>
+      <div style="text-align: center; display: inline;" id="play">Play</div>
+      <div style="text-align: center; display: inline;" id="reset">Reset</div>
+      <div style="text-align: center; display: inline;" id="nkeyframe">Next</div>
+      <div style="text-align: center; display: inline;" id="pkeyframe">Prev</div>
     </div>
     <div>
       <div class="figlabel"><strong>Fig 1.</strong> Initializing candidates to process</div>
@@ -138,7 +152,7 @@
         poster=""
         width="320"
         height="210"
-        controls
+        controls="false"
         loop="false"
         muted
         webkit-playsinline
@@ -158,6 +172,44 @@
     </div>
 
   </div>
+
+  <script>
+
+    const video = document.getElementById('video1');
+
+    function togglePlay() {
+      if (video.paused || video.ended) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    }
+
+    function resetPlay() {
+      video.currentTime = 0.0;
+    }
+
+    function nextKeyFrame() {
+      video.currentTime += 1.0;
+    }
+
+    function prevKeyFrame() {
+      video.currentTime -= 1.0;
+    }
+
+    const playButton = document.getElementById('play');
+    playButton.addEventListener('click', togglePlay);
+
+    const resetButton = document.getElementById('reset');
+    resetButton.addEventListener('click', resetPlay);
+
+    const nextkfButton = document.getElementById('nkeyframe');
+    nextkfButton.addEventListener('click', nextKeyFrame);
+
+    const prevkfButton = document.getElementById('pkeyframe');
+    prevkfButton.addEventListener('click', prevKeyFrame);
+
+  </script>
 </body>
 
 </html>
