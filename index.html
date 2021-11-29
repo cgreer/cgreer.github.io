@@ -265,7 +265,7 @@
         </div>
         <div class="controls-right">
           <img id="vc-pkf-1" class="controls-prev-kf" src="./vc-pkf.svg"></img>
-          <div class="controls-frame-progress"><div>9 of 22</div></div>
+          <div class="controls-frame-progress"><div>1 of 22</div></div>
           <img id="vc-nkf-1" class="controls-next-kf" src="./vc-nkf.svg"></img>
         </div>
     </div>
@@ -473,11 +473,15 @@
     let vcCont1 = document.getElementById('vc-cont-1');
     vcCont1.addEventListener('touchstart', preventZoom);
 
+    console.log("simple zoom elimination");
+
+    /*
     let vcContChildren = childNodesRecursive(vcCont1);
     for (vcContChild of vcContChildren) {
       vcContChild.addEventListener('touchstart', preventZoom);
       console.log(vcContChild);
     }
+    */
 
   </script>
 </body>
