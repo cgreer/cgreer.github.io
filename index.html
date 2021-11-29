@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>Toposort</title>
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <style>
@@ -395,6 +395,14 @@
       video.currentTime -= 1.0;
     }
 
+    function handleTimeUpdate() {
+      console.log("time updated");
+    }
+
+    function handleMetaData() {
+      console.log("meta data loaded");
+    }
+
     let numVids = 1;
     for (let vidIdx = 0; vidIdx < numVids; vidIdx++) {
       document.getElementById('vc-play-1').addEventListener(
@@ -421,6 +429,10 @@
         'click',
         () => {nextKeyFrame(document.getElementById('video-1'))}
       );
+
+      document.getElementById('video-1').addEventListener('timeupdate', handleTimeUpdate);
+      document.getElementById('video-1').addEventListener('loadedmetadata', handleMetaData);
+
     }
 
   </script>
