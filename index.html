@@ -359,6 +359,19 @@
 
   <script>
 
+    function preventZoom(e) {
+      var t2 = e.timeStamp;
+      var t1 = e.currentTarget.dataset.lastTouch || t2;
+      var dt = t2 - t1;
+      var fingers = e.touches.length;
+      e.currentTarget.dataset.lastTouch = t2;
+
+      if (!dt || dt > 500 || fingers > 1) return; // not double-tap
+
+      e.preventDefault();
+      e.target.click();
+    }
+
     function pauseVideo(vidNum) {
         document.getElementById('video-' + vidNum).pause();
         document.getElementById('vc-play-' + vidNum).classList.remove("hidden");
@@ -424,10 +437,16 @@
         'click',
         () => {prevKeyFrame(document.getElementById('video-1'))}
       );
+      document.getElementById('vc-pkf-1').addEventListener(
+        'touchstart', preventZoom
+      );
 
       document.getElementById('vc-nkf-1').addEventListener(
         'click',
         () => {nextKeyFrame(document.getElementById('video-1'))}
+      );
+      document.getElementById('vc-nkf-1').addEventListener(
+        'touchstart', preventZoom
       );
 
       document.getElementById('video-1').addEventListener('timeupdate', handleTimeUpdate);
