@@ -107,18 +107,37 @@
 
     /* VIDEO PLAYER */
     .video-container {
-      width: 420px;
-      border-radius: 4px;
-      margin: 0 auto;
       position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      margin: 0 auto;
     }
 
-    .playback-control {
-      width: 30px;
-      height: 30px;
+    .vid-hit-container {
+      position: absolute;
+      z-index: 100;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      height: 100%;
+      width: 100%;
+
+    }
+
+    .vid-hit-l {
+      height: 100%;
+      width: 30%;
+    }
+
+    .vid-hit-c {
+      height: 100%;
+      width: 40%;
+    }
+
+    .vid-hit-r {
+      height: 100%;
+      width: 30%;
     }
 
     video {
@@ -145,17 +164,12 @@
       justify-content: space-between;
       align-items: center;
 
-      /*
-      margin: 0 auto;
-      width: 90%;
-      height: 31px;
-      border-radius: 0px 0px 4px 4px;
-      background: hsla(215, 11%, 56%, .12);
-      */
     }
 
     .controls-hit-container {
       position: absolute;
+      z-index: 100;
+
       display: flex;
       flex-direction: row;
       justify-content: space-between;
@@ -164,12 +178,6 @@
       height: 100%;
       width: 100%;
 
-      /*
-      margin: 0 auto;
-      width: 90%;
-      border-radius: 0px 0px 4px 4px;
-      background: hsla(215, 11%, 56%, .12);
-      */
     }
 
     .controls-hit-l {
@@ -296,7 +304,21 @@
     dependencies (incoming edges), and add those nodes to the
     <i>candidates</i> stack.</p>
 
-    <div>
+    <div class="video-container">
+
+      <div id="vid-hit-cont-1" class="vid-hit-container">
+
+        <div id="vid-hit-pkf-1" class="vid-hit-l">
+        </div>
+
+        <div id="vid-hit-play-1" class="vid-hit-c">
+        </div>
+
+        <div id="vid-hit-nkf-1" class="vid-hit-r">
+        </div>
+
+      </div>
+
       <video
         id="video-1"
         class="aligncenter"
@@ -543,6 +565,23 @@
       );
       */
 
+      // Vid Overlay Controls
+      document.getElementById('vid-hit-play-1').addEventListener(
+        'click',
+        () => {togglePlay(document.getElementById('video-1'))}
+      );
+
+      document.getElementById('vid-hit-pkf-1').addEventListener(
+        'click',
+        () => {prevKeyFrame(document.getElementById('video-1'))}
+      );
+
+      document.getElementById('vid-hit-nkf-1').addEventListener(
+        'click',
+        () => {nextKeyFrame(document.getElementById('video-1'))}
+      );
+
+      // Vid Controls
       document.getElementById('vc-hit-restart-1').addEventListener(
         'click',
         () => {resetVideo(document.getElementById('video-1'))}
@@ -571,6 +610,9 @@
     // Prevent all the zooms
     let vid1 = document.getElementById('video-1');
     vid1.addEventListener('touchstart', preventZoom);
+
+    let vidHit1 = document.getElementById('vid-hit-cont-1');
+    vidHit1.addEventListener('touchstart', preventZoom);
 
     let vcCont1 = document.getElementById('vc-cont-1');
     vcCont1.addEventListener('touchstart', preventZoom);
