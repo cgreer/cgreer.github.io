@@ -130,17 +130,77 @@
 
     /* VIDEO CONTROLS */
     .controls-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
+      position: relative;
       margin: 0 auto;
       width: 90%;
       height: 31px;
 
       border-radius: 0px 0px 4px 4px;
       background: hsla(215, 11%, 56%, .12);
+    }
+
+    .controls-ui-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      /*
+      margin: 0 auto;
+      width: 90%;
+      height: 31px;
+      border-radius: 0px 0px 4px 4px;
+      background: hsla(215, 11%, 56%, .12);
+      */
+    }
+
+    .controls-hit-container {
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      height: 100%;
+      width: 100%;
+
+      /*
+      margin: 0 auto;
+      width: 90%;
+      border-radius: 0px 0px 4px 4px;
+      background: hsla(215, 11%, 56%, .12);
+      */
+    }
+
+    .controls-hit-l {
+      /* flex-grow: 1; */
+
+      height: 100%;
+      width: 70px;
+    }
+
+    .controls-hit-c {
+      height: 100%;
+      width: 90px;
+    }
+
+    .controls-hit-r {
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      align-items: center;
+
+      height: 100%;
+      width: 100px;
+    }
+
+    .controls-hit-rl {
+      height: 100%;
+      width: 50%;
+    }
+    .controls-hit-rr {
+      height: 100%;
+      width: 50%;
     }
 
     .controls-left {
@@ -254,21 +314,41 @@
       </video>
     </div>
 
-    <div id="vc-cont-1" class="controls-container">
-        <div class="controls-left">
-          <img id="vc-restart-1" class="controls-restart" src="./vc-restart.svg"></img>
+    <div class="controls-container">
+
+      <div id="vc-hit-cont-1" class="controls-hit-container">
+        <div id="vc-hit-restart-1" class="controls-hit-l">
         </div>
-        <div class="controls-center">
-          <img id="vc-play-1" class="controls-play" src="./vc-play.svg"></img>
-          <img id="vc-pause-1" class="controls-play hidden" src="./vc-pause.svg"></img>
+
+        <div id="vc-hit-play-1" class="controls-hit-c">
         </div>
-        <div class="controls-right">
-          <img id="vc-pkf-1" class="controls-prev-kf" src="./vc-pkf.svg"></img>
-          <div class="controls-frame-progress">
-            <div id="vc-progress-1">1 of 22</div>
+
+        <div class="controls-hit-r">
+          <div id="vc-hit-pkf-1" class="controls-hit-rl">
           </div>
-          <img id="vc-nkf-1" class="controls-next-kf" src="./vc-nkf.svg"></img>
+          <div id="vc-hit-nkf-1" class="controls-hit-rr">
+          </div>
         </div>
+      </div>
+
+      <div id="vc-cont-1" class="controls-ui-container">
+          <div class="controls-left">
+            <img id="vc-restart-1" class="controls-restart" src="./vc-restart.svg"></img>
+          </div>
+          <div class="controls-center">
+            <img id="vc-play-1" class="controls-play" src="./vc-play.svg"></img>
+            <img id="vc-pause-1" class="controls-play hidden" src="./vc-pause.svg"></img>
+          </div>
+          <div class="controls-right">
+            <img id="vc-pkf-1" class="controls-prev-kf" src="./vc-pkf.svg"></img>
+            <div class="controls-frame-progress">
+              <div id="vc-progress-1">1 of 22</div>
+            </div>
+            <img id="vc-nkf-1" class="controls-next-kf" src="./vc-nkf.svg"></img>
+          </div>
+      </div>
+
+
     </div>
 
     <div>
@@ -436,6 +516,7 @@
 
     let numVids = 1;
     for (let vidIdx = 0; vidIdx < numVids; vidIdx++) {
+      /*
       document.getElementById('vc-play-1').addEventListener(
         'click',
         () => {togglePlay(document.getElementById('video-1'))}
@@ -460,6 +541,27 @@
         'click',
         () => {nextKeyFrame(document.getElementById('video-1'))}
       );
+      */
+
+      document.getElementById('vc-hit-restart-1').addEventListener(
+        'click',
+        () => {resetVideo(document.getElementById('video-1'))}
+      );
+
+      document.getElementById('vc-hit-play-1').addEventListener(
+        'click',
+        () => {togglePlay(document.getElementById('video-1'))}
+      );
+
+      document.getElementById('vc-hit-pkf-1').addEventListener(
+        'click',
+        () => {prevKeyFrame(document.getElementById('video-1'))}
+      );
+
+      document.getElementById('vc-hit-nkf-1').addEventListener(
+        'click',
+        () => {nextKeyFrame(document.getElementById('video-1'))}
+      );
 
       document.getElementById('video-1').addEventListener('timeupdate', handleTimeUpdate);
       document.getElementById('video-1').addEventListener('loadedmetadata', handleMetaData);
@@ -472,6 +574,9 @@
 
     let vcCont1 = document.getElementById('vc-cont-1');
     vcCont1.addEventListener('touchstart', preventZoom);
+
+    let vcHitCont1 = document.getElementById('vc-hit-cont-1');
+    vcHitCont1.addEventListener('touchstart', preventZoom);
 
     /*
     let vcContChildren = childNodesRecursive(vcCont1);
