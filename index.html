@@ -264,7 +264,9 @@
         </div>
         <div class="controls-right">
           <img id="vc-pkf-1" class="controls-prev-kf" src="./vc-pkf.svg"></img>
-          <div class="controls-frame-progress"><div>1 of 22</div></div>
+          <div class="controls-frame-progress">
+            <div id="vc-progress-1">1 of 22</div>
+          </div>
           <img id="vc-nkf-1" class="controls-next-kf" src="./vc-nkf.svg"></img>
         </div>
     </div>
@@ -308,6 +310,38 @@
 
   <script>
 
+    class VideoData {
+      constructor(vidNum, keyframes) {
+        this.vidNum = vidNum;
+        this.keyframes = keyframes;
+      }
+
+      findKeyframe(vidProgress) {
+        for (let idx = 0; idx < this.keyframes.length; idx++) {
+          if (vidProgress >= this.keyframes[idx]) {
+            continue;
+          }
+          return idx - 1;
+        }
+        return this.keyframes.length - 1;
+      }
+    }
+  </script>
+
+  <script>
+
+    PDATA = {
+      vdata: [new VideoData(1, [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5])]
+    };
+
+    /*
+    console.log(PDATA.vdata[0]);
+    console.log(PDATA.vdata[0].findKeyframe(0.4));
+    console.log(PDATA.vdata[0].findKeyframe(0.6));
+    console.log(PDATA.vdata[0].findKeyframe(5.0));
+    console.log(PDATA.vdata[0].findKeyframe(0.5));
+    */
+
     function preventZoom(e) {
       var t2 = e.timeStamp;
       var t1 = e.currentTarget.dataset.lastTouch || t2;
@@ -342,23 +376,41 @@
       }
     }
 
+    function updateProgress(vidNum, currentTime) {
+      let vidData = PDATA.vdata[vidNum - 1];
+      let kf = vidData.findKeyframe(currentTime) + 1;
+      let numFrames = vidData.keyframes.length;
+      document.getElementById('vc-progress-1').innerHTML = kf + " of " + numFrames;
+    }
+
     function resetVideo(video) {
       pauseVideo(1);
       video.currentTime = 0.0;
     }
 
     function nextKeyFrame(video) {
-      pauseVideo(1);
-      video.currentTime += 1.0;
+      let vidNum = 1;
+      pauseVideo(vidNum);
+
+      let vidData = PDATA.vdata[vidNum - 1];
+      let currentKf = vidData.findKeyframe(video.currentTime);
+      let nextKf = Math.min(currentKf + 1, vidData.keyframes.length - 1);
+      video.currentTime = vidData.keyframes[nextKf];
     }
 
     function prevKeyFrame(video) {
-      pauseVideo(1);
-      video.currentTime -= 1.0;
+      let vidNum = 1;
+      pauseVideo(vidNum);
+
+      let vidData = PDATA.vdata[vidNum - 1];
+      let currentKf = vidData.findKeyframe(video.currentTime);
+      let prevKf = Math.max(currentKf - 1, 0);
+      video.currentTime = vidData.keyframes[prevKf];
     }
 
-    function handleTimeUpdate() {
-      console.log("time updated");
+    function handleTimeUpdate(e) {
+      // console.log("time updated:", e.target.currentTime);
+      updateProgress(1, e.target.currentTime);
     }
 
     function handleMetaData() {
@@ -409,7 +461,6 @@
         () => {nextKeyFrame(document.getElementById('video-1'))}
       );
 
-
       document.getElementById('video-1').addEventListener('timeupdate', handleTimeUpdate);
       document.getElementById('video-1').addEventListener('loadedmetadata', handleMetaData);
 
@@ -421,8 +472,6 @@
 
     let vcCont1 = document.getElementById('vc-cont-1');
     vcCont1.addEventListener('touchstart', preventZoom);
-
-    console.log("simple zoom elimination");
 
     /*
     let vcContChildren = childNodesRecursive(vcCont1);
