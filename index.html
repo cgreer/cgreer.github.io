@@ -255,7 +255,7 @@
       </video>
     </div>
 
-    <div class="controls-container">
+    <div id="vc-cont-1" class="controls-container">
         <div class="controls-left">
           <img id="vc-restart-1" class="controls-restart" src="./vc-restart.svg"></img>
         </div>
@@ -416,6 +416,23 @@
       console.log("meta data loaded");
     }
 
+    function childNodesRecursive(node) {
+      var children = [];
+
+      var to_expand = [];
+      to_expand.push(node);
+
+      var expandingNode;
+      while (to_expand.length > 0) {
+        expandingNode = to_expand.pop();
+        for (var i = 0; i < expandingNode.childNodes.length; i++) {
+          to_expand.push(expandingNode.childNodes[i]);
+          children.push(expandingNode.childNodes[i]);
+        }
+      }
+      return children;
+    }
+
     let numVids = 1;
     for (let vidIdx = 0; vidIdx < numVids; vidIdx++) {
       document.getElementById('vc-play-1').addEventListener(
@@ -437,21 +454,29 @@
         'click',
         () => {prevKeyFrame(document.getElementById('video-1'))}
       );
-      document.getElementById('vc-pkf-1').addEventListener(
-        'touchstart', preventZoom
-      );
 
       document.getElementById('vc-nkf-1').addEventListener(
         'click',
         () => {nextKeyFrame(document.getElementById('video-1'))}
       );
-      document.getElementById('vc-nkf-1').addEventListener(
-        'touchstart', preventZoom
-      );
+
 
       document.getElementById('video-1').addEventListener('timeupdate', handleTimeUpdate);
       document.getElementById('video-1').addEventListener('loadedmetadata', handleMetaData);
 
+    }
+
+    // Prevent all the zooms
+    let vid1 = document.getElementById('video-1');
+    vid1.addEventListener('touchstart', preventZoom);
+
+    let vcCont1 = document.getElementById('vc-cont-1');
+    vcCont1.addEventListener('touchstart', preventZoom);
+
+    let vcContChildren = childNodesRecursive(vcCont1);
+    for (vcContChild of vcContChildren) {
+      vcContChild.addEventListener('touchstart', preventZoom);
+      console.log(vcContChild);
     }
 
   </script>
