@@ -12,6 +12,10 @@
       margin: 0px 8px;
     }
 
+    .hidden {
+      display: none;
+    }
+
     .header-container {
       display: block;
       margin-top: 0 px;
@@ -120,7 +124,7 @@
     video {
       width: 90%;
       height: 100%;
-      border-radius: 4px;
+      border-radius: 4px 4px 0px 0px;
     }
 
 
@@ -242,7 +246,6 @@
         width="320"
         height="210"
         loop="false"
-        autoplay
         muted
         webkit-playsinline
         playsinline
@@ -258,6 +261,7 @@
         </div>
         <div class="controls-center">
           <img id="vc-play-1" class="controls-play" src="./vc-play.svg"></img>
+          <img id="vc-pause-1" class="controls-play hidden" src="./vc-pause.svg"></img>
         </div>
         <div class="controls-right">
           <img id="vc-pkf-1" class="controls-prev-kf" src="./vc-pkf.svg"></img>
@@ -355,32 +359,50 @@
 
   <script>
 
+    function pauseVideo(vidNum) {
+        document.getElementById('video-' + vidNum).pause();
+        document.getElementById('vc-play-' + vidNum).classList.remove("hidden");
+        document.getElementById('vc-pause-' + vidNum).classList.add("hidden");
+    }
+
+    function playVideo(vidNum) {
+        document.getElementById('video-' + vidNum).play();
+        document.getElementById('vc-play-' + vidNum).classList.add("hidden");
+        document.getElementById('vc-pause-' + vidNum).classList.remove("hidden");
+    }
+
     function togglePlay(video) {
       if (video.paused || video.ended) {
-        video.play();
+        playVideo(1);
+        // video.play();
       } else {
-        video.pause();
+        pauseVideo(1);
       }
     }
 
     function resetVideo(video) {
-      video.pause();
+      pauseVideo(1);
       video.currentTime = 0.0;
     }
 
     function nextKeyFrame(video) {
-      video.pause();
+      pauseVideo(1);
       video.currentTime += 1.0;
     }
 
     function prevKeyFrame(video) {
-      video.pause();
+      pauseVideo(1);
       video.currentTime -= 1.0;
     }
 
     let numVids = 1;
     for (let vidIdx = 0; vidIdx < numVids; vidIdx++) {
       document.getElementById('vc-play-1').addEventListener(
+        'click',
+        () => {togglePlay(document.getElementById('video-1'))}
+      );
+
+      document.getElementById('vc-pause-1').addEventListener(
         'click',
         () => {togglePlay(document.getElementById('video-1'))}
       );
