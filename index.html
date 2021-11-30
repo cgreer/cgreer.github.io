@@ -286,6 +286,26 @@
       font-size: 11px;
     }
 
+    /* SLIDES */
+    .slides-cont {
+      position: relative;
+
+      width: 378px;
+      height: 244px;
+    }
+
+    .slides-slide {
+      position: absolute;
+
+      height: 100%;
+    }
+
+    .slides-button {
+      width: 50px;
+      height: 50px;
+      border: 1px solid black;
+    }
+
   </style>
 </head>
 
@@ -412,8 +432,26 @@
       <div id="click-test-text">0</div>
       <div id="click-test-button" style="height:50px; width: 50px; border: 1px solid black"></div>
     </div>
+    <div style="height: 100px;"></div>
 
-
+    <!-- SLIDES TEST -->
+    <div>
+      <div class="slides-cont">
+        <img id="slides-1-0" class="slides-slide" src="./slides-0.png"></img>
+        <img id="slides-1-1" class="slides-slide hidden" src="./slides-1.png"></img>
+        <img id="slides-1-2" class="slides-slide hidden" src="./slides-2.png"></img>
+        <img id="slides-1-3" class="slides-slide hidden" src="./slides-3.png"></img>
+        <img id="slides-1-4" class="slides-slide hidden" src="./slides-4.png"></img>
+        <img id="slides-1-5" class="slides-slide hidden" src="./slides-5.png"></img>
+        <img id="slides-1-6" class="slides-slide hidden" src="./slides-6.png"></img>
+        <img id="slides-1-7" class="slides-slide hidden" src="./slides-7.png"></img>
+        <img id="slides-1-8" class="slides-slide hidden" src="./slides-8.png"></img>
+        <img id="slides-1-9" class="slides-slide hidden" src="./slides-9.png"></img>
+      </div>
+    </div>
+    <div id="slides-button-p" class="slides-button"></div>
+    <div id="slides-button-n" class="slides-button"></div>
+    <div style="height: 100px;"></div>
 
   </div>
 
@@ -615,34 +653,35 @@
 
     }
 
-    // Prevent all the zooms
-    let vid1 = document.getElementById('video-1');
-    vid1.addEventListener('touchstart', preventZoom);
+    var activeSlide = 0;
+    var prevActiveSlide = 0;
 
-    let vidHit1 = document.getElementById('vid-hit-cont-1');
-    vidHit1.addEventListener('touchstart', preventZoom);
-
-    let vcCont1 = document.getElementById('vc-cont-1');
-    vcCont1.addEventListener('touchstart', preventZoom);
-
-    let vcHitCont1 = document.getElementById('vc-hit-cont-1');
-    vcHitCont1.addEventListener('touchstart', preventZoom);
-
-    document.getElementById('vid-hit-nkf-1').addEventListener(
-      'touchstart', preventZoom);
-
-    document.getElementById('click-test-button').addEventListener("click", () => {
-      let testText = document.getElementById('click-test-text');
-      testText.innerHTML = parseInt(testText.innerHTML) + 1
-    })
-
-    /*
-    let vcContChildren = childNodesRecursive(vcCont1);
-    for (vcContChild of vcContChildren) {
-      vcContChild.addEventListener('touchstart', preventZoom);
-      console.log(vcContChild);
+    function prevSlide(slidesNum, currSlide, slideCount) {
+      if ((activeSlide - 1) >= 0) {
+        prevActiveSlide = activeSlide;
+        activeSlide = activeSlide - 1;
+        document.getElementById('slides-1-' + activeSlide).classList.remove("hidden");
+        document.getElementById('slides-1-' + prevActiveSlide).classList.add("hidden");
+      }
+      console.log(activeSlide, prevActiveSlide);
     }
-    */
+
+    function nextSlide(slidesNum, currSlide, slideCount) {
+      if ((activeSlide + 1) <= (slideCount - 1)) {
+        prevActiveSlide = activeSlide;
+        activeSlide = activeSlide + 1;
+        document.getElementById('slides-1-' + activeSlide).classList.remove("hidden");
+        document.getElementById('slides-1-' + prevActiveSlide).classList.add("hidden");
+      }
+      console.log(activeSlide, prevActiveSlide);
+    }
+
+    let slideNext = document.getElementById('slides-button-n');
+    slideNext.addEventListener('click', () => nextSlide(1, activeSlide, 10))
+
+    let slidePrev = document.getElementById('slides-button-p');
+    slidePrev.addEventListener('click', () => prevSlide(1, activeSlide, 10))
+
   </script>
 </body>
 </html>
