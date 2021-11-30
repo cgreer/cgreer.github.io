@@ -8,6 +8,7 @@
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <style>
 
+
     body {
       margin: 0px 8px;
     }
@@ -325,13 +326,13 @@
         poster=""
         width="320"
         height="210"
-        preload="metadata"
+        preload="auto"
         loop="false"
         muted
         webkit-playsinline
         playsinline
       >
-        <source src="./media/Untitled_3.mp4#t=0.1" type="video/mp4">
+        <source src="./media/Untitled_3.mp4#t=0.01" type="video/mp4">
         Your browser does not support playing videos
       </video>
     </div>
@@ -405,8 +406,14 @@
 
     <!-- blank space so you can scroll past end of article to allow
       content to go to top of screen -->
-    <div style="height: 390px;">
+    <div style="height: 390px;"></div>
+
+    <div>
+      <div id="click-test-text">0</div>
+      <div id="click-test-button" style="height:50px; width: 50px; border: 1px solid black"></div>
     </div>
+
+
 
   </div>
 
@@ -433,7 +440,7 @@
   <script>
 
     let vid1Data = new VideoData(1, [
-      0.5, 1.5, 2.5, 3.5, 4.5, 5.5,
+      0.0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5,
       6.5, 7.5, 8.5, 9.5, 10.5, 11.5,
       12.5, 13.5, 14.5, 15.5, 16.5,
       17.5, 18.5]);
@@ -448,6 +455,7 @@
       var dt = t2 - t1;
       var fingers = e.touches.length;
       e.currentTarget.dataset.lastTouch = t2;
+      console.log("prevented double tap");
 
       if (!dt || dt > 500 || fingers > 1) return; // not double-tap
 
@@ -500,11 +508,13 @@
 
     function prevKeyFrame(video) {
       let vidNum = 1;
+
       pauseVideo(vidNum);
 
       let vidData = PDATA.vdata[vidNum - 1];
       let currentKf = vidData.findKeyframe(video.currentTime);
       let prevKf = Math.max(currentKf - 1, 0);
+
       video.currentTime = vidData.keyframes[prevKf];
     }
 
@@ -618,6 +628,14 @@
     let vcHitCont1 = document.getElementById('vc-hit-cont-1');
     vcHitCont1.addEventListener('touchstart', preventZoom);
 
+    document.getElementById('vid-hit-nkf-1').addEventListener(
+      'touchstart', preventZoom);
+
+    document.getElementById('click-test-button').addEventListener("click", () => {
+      let testText = document.getElementById('click-test-text');
+      testText.innerHTML = parseInt(testText.innerHTML) + 1
+    })
+
     /*
     let vcContChildren = childNodesRecursive(vcCont1);
     for (vcContChild of vcContChildren) {
@@ -625,9 +643,7 @@
       console.log(vcContChild);
     }
     */
-
   </script>
 </body>
-
 </html>
 
