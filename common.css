@@ -39,11 +39,11 @@ body {
 
 @media (min-width: 600px) {
   .header-container {
-    max-width: 660px;
+    max-width: 730px;
   }
 
   .header-seperator {
-    max-width: 660px;
+    max-width: 730px;
     font-size: 27px;
   }
 }
@@ -93,12 +93,12 @@ body {
 
 @media (min-width: 600px) {
   .post-container {
-    max-width: 660px;
+    max-width: 730px;
     padding: 0px 16px;
   }
 
   .post-header {
-    max-width: 660px;
+    max-width: 730px;
     font-size: 45px;
     margin: 25px 0px 15px 0px;
   }
@@ -109,7 +109,7 @@ body {
   }
 
   .ptext {
-    font-size: 22px;
+    font-size: 19px;
     margin: 0 0 22px;
   }
 
