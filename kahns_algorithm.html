@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+  <title>Toposort</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./common.css">
+</head>
+
+<body>
+
+  <div class="header-container">
+    <div class="header-seperator"><a href="./home">toposort</a></div>
+  </div>
+
+  <div class="post-container">
+
+    <h1 class="post-header">Kahn's Algorithm</h2>
+
+    <p class="ptext"> Start by identifying all the nodes that have no
+    dependencies (incoming edges), and add those nodes to the
+    <i>candidates</i> stack.</p>
+
+    <div id="vid-comp-1"></div>
+    <div>
+      <div class="figlabel"><strong>Fig 1.</strong> Initializing candidates to process</div>
+    </div>
+
+    <p class="ptext">For every candidate, remove each of the candidate's
+    outgoing edges from the graph, then add the candidate to the
+    solution. When you remove a candidate's edge, if the child node the
+    edge is connected to has no incoming edges, then add it to the
+    <i>candidates</i> stack.</p>
+
+    <div id="vid-comp-2"></div>
+    <div>
+      <div class="figlabel"><strong>Fig 2.</strong> Processing candidates to find solution</div>
+    </div>
+
+    <p class="ptext">For every candidate, remove each of the candidate's
+    outgoing edges from the graph, then add the candidate to the
+    solution. When you remove a candidate's edge, if the child node the
+    edge is connected to has no incoming edges, then add it to the
+    <i>candidates</i> stack.</p>
+
+    <p class="ptext">For every candidate, remove each of the candidate's
+    outgoing edges from the graph, then add the candidate to the
+    solution. When you remove a candidate's edge, if the child node the
+    edge is connected to has no incoming edges, then add it to the
+    <i>candidates</i> stack.</p>
+
+    <div class="section-header">Detecting cycles</div>
+
+    <p class="ptext">For every candidate, remove each of the candidate's
+    outgoing edges from the graph, then add the candidate to the
+    solution. When you remove a candidate's edge, if the child node the
+    edge is connected to has no incoming edges, then add it to the
+    <i>candidates</i> stack.</p>
+
+    <div style="height: 390px;"></div>
+
+    <div>
+      <div id="click-test-text">0</div>
+      <div id="click-test-button" style="height:50px; width: 50px; border: 1px solid black"></div>
+    </div>
+    <div style="height: 100px;"></div>
+
+    <!-- SLIDES TEST -->
+    <div id="slides-comp-5"></div>
+    <div style="height: 100px;"></div>
+
+  </div>
+
+  <!-- PAGE JS Imports -->
+  <script type="text/javascript" src="./utilities.js"></script>
+  <script type="text/javascript" src="./components/Component.js"></script>
+  <script type="text/javascript" src="./components/VideoData.js"></script>
+  <script type="text/javascript" src="./components/VideoPlayer.js"></script>
+  <script type="text/javascript" src="./components/SlidesPlayer.js"></script>
+
+  <!-- PAGE JS -->
+  <script>
+
+    let vid1Data = new VideoData(
+      "./media/Untitled_2.mp4",
+      [
+        0.0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5,
+        6.5, 7.5, 8.5, 9.5, 10.5, 11.5,
+        12.5, 13.5, 14.5, 15.5, 16.5,
+        17.5, 18.5
+      ]
+    );
+
+    let sPlayer = new SlidesPlayer(5, 10, "./");
+    sPlayer.spawn("slides-comp-5");
+
+    new VideoPlayer(1, vid1Data).spawn("vid-comp-1");
+    new VideoPlayer(2, vid1Data).spawn("vid-comp-2");
+
+  </script>
+
+</body>
+</html>

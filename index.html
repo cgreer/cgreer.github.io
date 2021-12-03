@@ -7,100 +7,109 @@
 
   <title>Toposort</title>
 
-  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,500,600,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="./common.css">
 </head>
 
 <body>
 
+  <!-- PAGE Content -->
   <div class="header-container">
-    <div class="header-seperator">toposort</div>
+    <div class="header-seperator"><a href="./home">toposort</a></div>
   </div>
 
-  <div class="post-container">
+  <div class="home-container">
 
-    <h1 class="post-header">Kahn's Algorithm</h2>
-
-    <p class="ptext"> Start by identifying all the nodes that have no
-    dependencies (incoming edges), and add those nodes to the
-    <i>candidates</i> stack.</p>
-
-    <div id="vid-comp-1"></div>
-    <div>
-      <div class="figlabel"><strong>Fig 1.</strong> Initializing candidates to process</div>
+    <div class="topics-container">
+      <div id="posts-topic" class="topics-topic topics-topic-selected">Posts</div>
+      <div id="about-topic" class="topics-topic">About</div>
+      <div id="contact-topic" class="topics-topic">Contact</div>
     </div>
 
-    <p class="ptext">For every candidate, remove each of the candidate's
-    outgoing edges from the graph, then add the candidate to the
-    solution. When you remove a candidate's edge, if the child node the
-    edge is connected to has no incoming edges, then add it to the
-    <i>candidates</i> stack.</p>
+    <div id="about-content" class="about-container hidden">Toposort is site for illustrated
+      explanations created by Chris Greer.</div>
+    <div id="contact-content" class="contact-container hidden">Send me
+      an email:
+      <strong>chrisgreer88@gmail.com</strong></div>
 
-    <div id="vid-comp-2"></div>
-    <div>
-      <div class="figlabel"><strong>Fig 2.</strong> Processing candidates to find solution</div>
+    <div id="postlist-content" class="postlist-container">
+
+      <div class="postlist-postitem">
+        <a class="postlist-itemhitbox" href="./kahns_algorithm"></a>
+
+        <div class="postlist-title">Kahn's Algorithm</div>
+        <div class="postlist-elapsed">2d ago</div>
+        <div class="postlist-description">Ordering events for fun and
+          for profit!</div>
+      </div>
+      <div class="postlist-divider"></div>
+
+      <div>
+        <div class="postlist-title">One Time Pad</div>
+        <div class="postlist-elapsed">1w ago</div>
+        <div class="postlist-description">
+          How do Alice and Bob maintained 100% secrecy while passing
+          messages around publically?
+        </div>
+      </div>
+      <div class="postlist-divider"></div>
+
     </div>
-
-    <p class="ptext">For every candidate, remove each of the candidate's
-    outgoing edges from the graph, then add the candidate to the
-    solution. When you remove a candidate's edge, if the child node the
-    edge is connected to has no incoming edges, then add it to the
-    <i>candidates</i> stack.</p>
-
-    <p class="ptext">For every candidate, remove each of the candidate's
-    outgoing edges from the graph, then add the candidate to the
-    solution. When you remove a candidate's edge, if the child node the
-    edge is connected to has no incoming edges, then add it to the
-    <i>candidates</i> stack.</p>
-
-    <div class="section-header">Detecting cycles</div>
-
-    <p class="ptext">For every candidate, remove each of the candidate's
-    outgoing edges from the graph, then add the candidate to the
-    solution. When you remove a candidate's edge, if the child node the
-    edge is connected to has no incoming edges, then add it to the
-    <i>candidates</i> stack.</p>
-
-    <div style="height: 390px;"></div>
-
-    <div>
-      <div id="click-test-text">0</div>
-      <div id="click-test-button" style="height:50px; width: 50px; border: 1px solid black"></div>
-    </div>
-    <div style="height: 100px;"></div>
-
-    <!-- SLIDES TEST -->
-    <div id="slides-comp-5"></div>
-    <div style="height: 100px;"></div>
 
   </div>
+
 
   <!-- PAGE JS Imports -->
   <script type="text/javascript" src="./utilities.js"></script>
-  <script type="text/javascript" src="./components/Component.js"></script>
-  <script type="text/javascript" src="./components/VideoData.js"></script>
-  <script type="text/javascript" src="./components/VideoPlayer.js"></script>
-  <script type="text/javascript" src="./components/SlidesPlayer.js"></script>
 
   <!-- PAGE JS -->
   <script>
 
-    let vid1Data = new VideoData(
-      "./media/Untitled_2.mp4",
-      [
-        0.0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5,
-        6.5, 7.5, 8.5, 9.5, 10.5, 11.5,
-        12.5, 13.5, 14.5, 15.5, 16.5,
-        17.5, 18.5
-      ]
-    );
 
-    let sPlayer = new SlidesPlayer(5, 10, "./");
-    sPlayer.spawn("slides-comp-5");
+    let postListContent = document.getElementById("postlist-content");
+    let aboutContent = document.getElementById("about-content");
+    let contactContent = document.getElementById("contact-content");
 
-    new VideoPlayer(1, vid1Data).spawn("vid-comp-1");
-    new VideoPlayer(2, vid1Data).spawn("vid-comp-2");
+    let postsTopic = document.getElementById("posts-topic");
+    let aboutTopic = document.getElementById("about-topic");
+    let contactTopic = document.getElementById("contact-topic");
+
+    function togglePostList() {
+      postListContent.classList.remove("hidden");
+      aboutContent.classList.add("hidden");
+      contactContent.classList.add("hidden");
+
+      postsTopic.classList.add("topics-topic-selected");
+      aboutTopic.classList.remove("topics-topic-selected");
+      contactTopic.classList.remove("topics-topic-selected");
+    }
+
+    function toggleAbout() {
+      console.log(postListContent);
+      postListContent.classList.add("hidden");
+      aboutContent.classList.remove("hidden");
+      contactContent.classList.add("hidden");
+
+      postsTopic.classList.remove("topics-topic-selected");
+      aboutTopic.classList.add("topics-topic-selected");
+      contactTopic.classList.remove("topics-topic-selected");
+    }
+
+
+    function toggleContact() {
+      postListContent.classList.add("hidden");
+      aboutContent.classList.add("hidden");
+      contactContent.classList.remove("hidden");
+
+      postsTopic.classList.remove("topics-topic-selected");
+      aboutTopic.classList.remove("topics-topic-selected");
+      contactTopic.classList.add("topics-topic-selected");
+    }
+
+    postsTopic.addEventListener('click', togglePostList);
+    aboutTopic.addEventListener('click', toggleAbout);
+    contactTopic.addEventListener('click', toggleContact);
 
   </script>
 
