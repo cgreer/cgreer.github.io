@@ -63,14 +63,14 @@ body {
   font-size: 30px;
   font-family: Georgia, Helvetica, sans-serif;
   font-weight: 500;
-  margin: 20px 0px 15px 0px;
+  margin: 20px 0px 12px 0px;
 }
 
 .section-header {
   font-size: 20px;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
-  margin: 15px 0px 20px 0px;
+  margin: 20px 0px 12px 0px;
 }
 
 .ptext {
@@ -100,10 +100,12 @@ body {
   .post-header {
     max-width: 660px;
     font-size: 45px;
+    margin: 25px 0px 15px 0px;
   }
 
   .section-header {
     font-size: 37px;
+    margin: 25px 0px 15px 0px;
   }
 
   .ptext {

@@ -48,6 +48,12 @@
     edge is connected to has no incoming edges, then add it to the
     <i>candidates</i> stack.</p>
 
+    <p class="ptext">For every candidate, remove each of the candidate's
+    outgoing edges from the graph, then add the candidate to the
+    solution. When you remove a candidate's edge, if the child node the
+    edge is connected to has no incoming edges, then add it to the
+    <i>candidates</i> stack.</p>
+
     <div class="section-header">Detecting cycles</div>
 
     <p class="ptext">For every candidate, remove each of the candidate's
