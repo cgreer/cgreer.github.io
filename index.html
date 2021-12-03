@@ -4,396 +4,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
   <title>Toposort</title>
+
   <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-  <style>
 
-
-    body {
-      margin: 0px 8px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .header-container {
-      display: block;
-      margin-top: 0 px;
-      margin-right: auto;
-      margin-bottom: 0px;
-      margin-left: auto;
-      max-width: 420px;
-    }
-
-    .header-seperator {
-      font-family: 'Lato', sans-serif;
-      font-weight: Bold;
-      font-style: normal;
-      font-size: 18px;
-      letter-spacing: 1px;
-      padding: 4px 4px 4px 4px;
-      text-align: center;
-      color: white;
-      /*background: hsl(0deg 83% 61%); */
-      background: hsl(212deg 72% 54%);
-      border-radius: 0px 0px 3px 3px;
-
-      /*
-      background: hsl(0deg 76% 61%);
-      color: hsl(212deg 72% 54%);
-      color: #666666;
-       color: #8f8f8f; */
-      /* background: #fbfbfb;
-      border: 1px solid #eaeaea;
-      */
-
-      /*
-      margin: 0px auto 0px auto;
-      max-width: 250px;
-      */
-    }
-
-    .header-title {
-      text-align: center;
-      font-size: 14px;
-      font-family: Lato, sans-serif;
-      font-weight: bold;
-      font-style: normal;
-      margin: 5px auto 5px auto;
-    }
-
-    .post-container {
-      display: block;
-      margin-top: 0 px;
-      margin-right: auto;
-      margin-bottom: 0px;
-      margin-left: auto;
-      max-width: 420px;
-      padding: 0px 8px;
-    }
-
-    .aligncenter {
-      display: block;
-      margin-top: 0 px;
-      margin-right: auto;
-      margin-bottom: 0px;
-      margin-left: auto;
-    }
-
-    .section-header {
-      font-size: 30px;
-      font-family: Georgia, Helvetica, sans-serif;
-      font-weight: 500;
-    }
-
-    .ptext {
-      color: black;
-      margin: 0 0 15px;
-      line-height: 1.55;
-      font-size: 16px;
-      font-family: Georgia, Helvetica, sans-serif;
-      max-width: 420px;
-    }
-
-    .figlabel {
-      text-align: center;
-      color: black;
-      font-size: 12px;
-      font-family: Georgia, Helvetica, sans-serif;
-      font-style: italic;
-      margin: 4px auto 20px auto;
-      font-weight: 300;
-    }
-
-    /* VIDEO PLAYER */
-    .video-container {
-      position: relative;
-      margin: 0 auto;
-    }
-
-    .vid-hit-container {
-      position: absolute;
-      z-index: 100;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-      height: 100%;
-      width: 100%;
-
-    }
-
-    .vid-hit-l {
-      height: 100%;
-      width: 30%;
-    }
-
-    .vid-hit-c {
-      height: 100%;
-      width: 40%;
-    }
-
-    .vid-hit-r {
-      height: 100%;
-      width: 30%;
-    }
-
-    video {
-      width: 90%;
-      height: 100%;
-      border-radius: 4px 4px 0px 0px;
-    }
-
-
-    /* VIDEO CONTROLS */
-    .controls-container {
-      position: relative;
-      margin: 0 auto;
-      width: 90%;
-      height: 31px;
-
-      border-radius: 0px 0px 4px 4px;
-      background: hsla(215, 11%, 56%, .12);
-    }
-
-    .controls-ui-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-    }
-
-    .controls-hit-container {
-      position: absolute;
-      z-index: 100;
-
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-      height: 100%;
-      width: 100%;
-
-    }
-
-    .controls-hit-l {
-      /* flex-grow: 1; */
-
-      height: 100%;
-      width: 70px;
-    }
-
-    .controls-hit-c {
-      height: 100%;
-      width: 90px;
-    }
-
-    .controls-hit-r {
-      display: flex;
-      flex-direction: row;
-      justify-content: left;
-      align-items: center;
-
-      height: 100%;
-      width: 100px;
-    }
-
-    .controls-hit-rl {
-      height: 100%;
-      width: 50%;
-    }
-    .controls-hit-rr {
-      height: 100%;
-      width: 50%;
-    }
-
-    .controls-left {
-      display: flex;
-      flex-direction: row;
-      justify-content: left;
-      align-items: center;
-
-      /*background: black;*/
-      width: 60px;
-      height: 30px;
-      margin-left: 10px;
-    }
-
-    .controls-center {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      /*background: black;*/
-      width: 60px;
-      height: 30px;
-    }
-
-    .controls-right {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-      /*background: black;*/
-      width: 80px;
-      height: 30px;
-      margin-right: 10px;
-    }
-
-    .controls-restart {
-      /*background: #454545;*/
-      width: 20px;
-      height: 20px;
-    }
-
-    .controls-play {
-      /*background: #454545;*/
-      width: 20px;
-      height: 20px;
-    }
-
-    .controls-prev-kf {
-      /*background: #454545;*/
-      width: 10px;
-      height: 20px;
-    }
-
-    .controls-next-kf {
-      /*background: #454545;*/
-      width: 10px;
-      height: 20px;
-    }
-
-    .controls-frame-progress {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      width: 50px;
-      height: 20px;
-
-      font-family: 'Lato', sans-serif;
-      font-weight: normal;
-      font-style: normal;
-      font-size: 11px;
-    }
-
-    /* SLIDES */
-    .slides-cont {
-      position: relative;
-
-      width: 378px;
-      height: 244px;
-    }
-
-    .slides-slide {
-      position: absolute;
-
-      height: 100%;
-    }
-
-    .slides-button {
-      width: 50px;
-      height: 50px;
-      border: 1px solid black;
-    }
-
-  </style>
+  <link rel="stylesheet" href="./common.css">
 </head>
 
 <body>
+
   <div class="header-container">
-    <!--<div class="header-title">toposort</div> -->
-    <!--<div class="header-seperator">◎●◇●◲TOPOSORT◱●◇●◎</div> -->
-    <!--<div class="header-seperator">◇◇◇TOPOSORT◇◇◇</div>-->
     <div class="header-seperator">toposort</div>
   </div>
 
   <div class="post-container">
 
-    <h1 class="section-header">Kahn's Algorithm</h2>
+    <h1 class="post-header">Kahn's Algorithm</h2>
 
     <p class="ptext"> Start by identifying all the nodes that have no
     dependencies (incoming edges), and add those nodes to the
     <i>candidates</i> stack.</p>
 
-    <div class="video-container">
-
-      <div id="vid-hit-cont-1" class="vid-hit-container">
-
-        <div id="vid-hit-pkf-1" class="vid-hit-l">
-        </div>
-
-        <div id="vid-hit-play-1" class="vid-hit-c">
-        </div>
-
-        <div id="vid-hit-nkf-1" class="vid-hit-r">
-        </div>
-
-      </div>
-
-      <video
-        id="video-1"
-        class="aligncenter"
-        poster=""
-        width="320"
-        height="210"
-        preload="auto"
-        loop="false"
-        muted
-        webkit-playsinline
-        playsinline
-      >
-        <source src="./media/Untitled_3.mp4#t=0.01" type="video/mp4">
-        Your browser does not support playing videos
-      </video>
-    </div>
-
-    <div class="controls-container">
-
-      <div id="vc-hit-cont-1" class="controls-hit-container">
-        <div id="vc-hit-restart-1" class="controls-hit-l">
-        </div>
-
-        <div id="vc-hit-play-1" class="controls-hit-c">
-        </div>
-
-        <div class="controls-hit-r">
-          <div id="vc-hit-pkf-1" class="controls-hit-rl">
-          </div>
-          <div id="vc-hit-nkf-1" class="controls-hit-rr">
-          </div>
-        </div>
-      </div>
-
-      <div id="vc-cont-1" class="controls-ui-container">
-          <div class="controls-left">
-            <img id="vc-restart-1" class="controls-restart" src="./vc-restart.svg"></img>
-          </div>
-          <div class="controls-center">
-            <img id="vc-play-1" class="controls-play" src="./vc-play.svg"></img>
-            <img id="vc-pause-1" class="controls-play hidden" src="./vc-pause.svg"></img>
-          </div>
-          <div class="controls-right">
-            <img id="vc-pkf-1" class="controls-prev-kf" src="./vc-pkf.svg"></img>
-            <div class="controls-frame-progress">
-              <div id="vc-progress-1">1 of 22</div>
-            </div>
-            <img id="vc-nkf-1" class="controls-next-kf" src="./vc-nkf.svg"></img>
-          </div>
-      </div>
-
-
-    </div>
-
+    <div id="vid-comp-1"></div>
     <div>
       <div class="figlabel"><strong>Fig 1.</strong> Initializing candidates to process</div>
     </div>
@@ -404,28 +37,25 @@
     edge is connected to has no incoming edges, then add it to the
     <i>candidates</i> stack.</p>
 
-    <div>
-      <video
-        class="aligncenter"
-        poster=""
-        width="320"
-        height="210"
-        controls="false"
-        loop="false"
-        muted
-        webkit-playsinline
-        playsinline
-      >
-        <source src="./media/Untitled_2.mp4" type="video/mp4">
-        Your browser does not support playing videos
-      </video>
-    </div>
+    <div id="vid-comp-2"></div>
     <div>
       <div class="figlabel"><strong>Fig 2.</strong> Processing candidates to find solution</div>
     </div>
 
-    <!-- blank space so you can scroll past end of article to allow
-      content to go to top of screen -->
+    <p class="ptext">For every candidate, remove each of the candidate's
+    outgoing edges from the graph, then add the candidate to the
+    solution. When you remove a candidate's edge, if the child node the
+    edge is connected to has no incoming edges, then add it to the
+    <i>candidates</i> stack.</p>
+
+    <div class="section-header">Detecting cycles</div>
+
+    <p class="ptext">For every candidate, remove each of the candidate's
+    outgoing edges from the graph, then add the candidate to the
+    solution. When you remove a candidate's edge, if the child node the
+    edge is connected to has no incoming edges, then add it to the
+    <i>candidates</i> stack.</p>
+
     <div style="height: 390px;"></div>
 
     <div>
@@ -435,254 +65,38 @@
     <div style="height: 100px;"></div>
 
     <!-- SLIDES TEST -->
-    <div>
-      <div class="slides-cont">
-        <img id="slides-1-0" class="slides-slide" src="./slides-0.png"></img>
-        <img id="slides-1-1" class="slides-slide hidden" src="./slides-1.png"></img>
-        <img id="slides-1-2" class="slides-slide hidden" src="./slides-2.png"></img>
-        <img id="slides-1-3" class="slides-slide hidden" src="./slides-3.png"></img>
-        <img id="slides-1-4" class="slides-slide hidden" src="./slides-4.png"></img>
-        <img id="slides-1-5" class="slides-slide hidden" src="./slides-5.png"></img>
-        <img id="slides-1-6" class="slides-slide hidden" src="./slides-6.png"></img>
-        <img id="slides-1-7" class="slides-slide hidden" src="./slides-7.png"></img>
-        <img id="slides-1-8" class="slides-slide hidden" src="./slides-8.png"></img>
-        <img id="slides-1-9" class="slides-slide hidden" src="./slides-9.png"></img>
-      </div>
-    </div>
-    <div id="slides-button-p" class="slides-button"></div>
-    <div id="slides-button-n" class="slides-button"></div>
+    <div id="slides-comp-5"></div>
     <div style="height: 100px;"></div>
 
   </div>
 
+  <!-- PAGE JS Imports -->
+  <script type="text/javascript" src="./utilities.js"></script>
+  <script type="text/javascript" src="./components/Component.js"></script>
+  <script type="text/javascript" src="./components/VideoData.js"></script>
+  <script type="text/javascript" src="./components/VideoPlayer.js"></script>
+  <script type="text/javascript" src="./components/SlidesPlayer.js"></script>
+
+  <!-- PAGE JS -->
   <script>
 
-    class VideoData {
-      constructor(vidNum, keyframes) {
-        this.vidNum = vidNum;
-        this.keyframes = keyframes;
-      }
+    let vid1Data = new VideoData(
+      "./media/Untitled_2.mp4",
+      [
+        0.0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5,
+        6.5, 7.5, 8.5, 9.5, 10.5, 11.5,
+        12.5, 13.5, 14.5, 15.5, 16.5,
+        17.5, 18.5
+      ]
+    );
 
-      findKeyframe(vidProgress) {
-        for (let idx = 0; idx < this.keyframes.length; idx++) {
-          if (vidProgress >= this.keyframes[idx]) {
-            continue;
-          }
-          return idx - 1;
-        }
-        return this.keyframes.length - 1;
-      }
-    }
-  </script>
+    let sPlayer = new SlidesPlayer(5, 10, "./");
+    sPlayer.spawn("slides-comp-5");
 
-  <script>
-
-    let vid1Data = new VideoData(1, [
-      0.0, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5,
-      6.5, 7.5, 8.5, 9.5, 10.5, 11.5,
-      12.5, 13.5, 14.5, 15.5, 16.5,
-      17.5, 18.5]);
-
-    PDATA = {
-      vdata: [vid1Data]
-    };
-
-    function preventZoom(e) {
-      var t2 = e.timeStamp;
-      var t1 = e.currentTarget.dataset.lastTouch || t2;
-      var dt = t2 - t1;
-      var fingers = e.touches.length;
-      e.currentTarget.dataset.lastTouch = t2;
-      console.log("prevented double tap");
-
-      if (!dt || dt > 500 || fingers > 1) return; // not double-tap
-
-      e.preventDefault();
-      e.target.click();
-    }
-
-    function pauseVideo(vidNum) {
-        document.getElementById('video-' + vidNum).pause();
-        document.getElementById('vc-play-' + vidNum).classList.remove("hidden");
-        document.getElementById('vc-pause-' + vidNum).classList.add("hidden");
-    }
-
-    function playVideo(vidNum) {
-        document.getElementById('video-' + vidNum).play();
-        document.getElementById('vc-play-' + vidNum).classList.add("hidden");
-        document.getElementById('vc-pause-' + vidNum).classList.remove("hidden");
-    }
-
-    function togglePlay(video) {
-      if (video.paused || video.ended) {
-        playVideo(1);
-        // video.play();
-      } else {
-        pauseVideo(1);
-      }
-    }
-
-    function updateProgress(vidNum, currentTime) {
-      let vidData = PDATA.vdata[vidNum - 1];
-      let kf = vidData.findKeyframe(currentTime) + 1;
-      let numFrames = vidData.keyframes.length;
-      document.getElementById('vc-progress-1').innerHTML = kf + " of " + numFrames;
-    }
-
-    function resetVideo(video) {
-      pauseVideo(1);
-      video.currentTime = 0.0;
-    }
-
-    function nextKeyFrame(video) {
-      let vidNum = 1;
-      pauseVideo(vidNum);
-
-      let vidData = PDATA.vdata[vidNum - 1];
-      let currentKf = vidData.findKeyframe(video.currentTime);
-      let nextKf = Math.min(currentKf + 1, vidData.keyframes.length - 1);
-      video.currentTime = vidData.keyframes[nextKf];
-    }
-
-    function prevKeyFrame(video) {
-      let vidNum = 1;
-
-      pauseVideo(vidNum);
-
-      let vidData = PDATA.vdata[vidNum - 1];
-      let currentKf = vidData.findKeyframe(video.currentTime);
-      let prevKf = Math.max(currentKf - 1, 0);
-
-      video.currentTime = vidData.keyframes[prevKf];
-    }
-
-    function handleTimeUpdate(e) {
-      // console.log("time updated:", e.target.currentTime);
-      updateProgress(1, e.target.currentTime);
-    }
-
-    function handleMetaData() {
-      console.log("meta data loaded");
-    }
-
-    function childNodesRecursive(node) {
-      var children = [];
-
-      var to_expand = [];
-      to_expand.push(node);
-
-      var expandingNode;
-      while (to_expand.length > 0) {
-        expandingNode = to_expand.pop();
-        for (var i = 0; i < expandingNode.childNodes.length; i++) {
-          to_expand.push(expandingNode.childNodes[i]);
-          children.push(expandingNode.childNodes[i]);
-        }
-      }
-      return children;
-    }
-
-    let numVids = 1;
-    for (let vidIdx = 0; vidIdx < numVids; vidIdx++) {
-      /*
-      document.getElementById('vc-play-1').addEventListener(
-        'click',
-        () => {togglePlay(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vc-pause-1').addEventListener(
-        'click',
-        () => {togglePlay(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vc-restart-1').addEventListener(
-        'click',
-        () => {resetVideo(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vc-pkf-1').addEventListener(
-        'click',
-        () => {prevKeyFrame(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vc-nkf-1').addEventListener(
-        'click',
-        () => {nextKeyFrame(document.getElementById('video-1'))}
-      );
-      */
-
-      // Vid Overlay Controls
-      document.getElementById('vid-hit-play-1').addEventListener(
-        'click',
-        () => {togglePlay(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vid-hit-pkf-1').addEventListener(
-        'click',
-        () => {prevKeyFrame(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vid-hit-nkf-1').addEventListener(
-        'click',
-        () => {nextKeyFrame(document.getElementById('video-1'))}
-      );
-
-      // Vid Controls
-      document.getElementById('vc-hit-restart-1').addEventListener(
-        'click',
-        () => {resetVideo(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vc-hit-play-1').addEventListener(
-        'click',
-        () => {togglePlay(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vc-hit-pkf-1').addEventListener(
-        'click',
-        () => {prevKeyFrame(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('vc-hit-nkf-1').addEventListener(
-        'click',
-        () => {nextKeyFrame(document.getElementById('video-1'))}
-      );
-
-      document.getElementById('video-1').addEventListener('timeupdate', handleTimeUpdate);
-      document.getElementById('video-1').addEventListener('loadedmetadata', handleMetaData);
-
-    }
-
-    var activeSlide = 0;
-    var prevActiveSlide = 0;
-
-    function prevSlide(slidesNum, currSlide, slideCount) {
-      if ((activeSlide - 1) >= 0) {
-        prevActiveSlide = activeSlide;
-        activeSlide = activeSlide - 1;
-        document.getElementById('slides-1-' + activeSlide).classList.remove("hidden");
-        document.getElementById('slides-1-' + prevActiveSlide).classList.add("hidden");
-      }
-      console.log(activeSlide, prevActiveSlide);
-    }
-
-    function nextSlide(slidesNum, currSlide, slideCount) {
-      if ((activeSlide + 1) <= (slideCount - 1)) {
-        prevActiveSlide = activeSlide;
-        activeSlide = activeSlide + 1;
-        document.getElementById('slides-1-' + activeSlide).classList.remove("hidden");
-        document.getElementById('slides-1-' + prevActiveSlide).classList.add("hidden");
-      }
-      console.log(activeSlide, prevActiveSlide);
-    }
-
-    let slideNext = document.getElementById('slides-button-n');
-    slideNext.addEventListener('click', () => nextSlide(1, activeSlide, 10))
-
-    let slidePrev = document.getElementById('slides-button-p');
-    slidePrev.addEventListener('click', () => prevSlide(1, activeSlide, 10))
+    new VideoPlayer(1, vid1Data).spawn("vid-comp-1");
+    new VideoPlayer(2, vid1Data).spawn("vid-comp-2");
 
   </script>
+
 </body>
 </html>
-
