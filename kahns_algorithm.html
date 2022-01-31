@@ -22,7 +22,7 @@
 
     <h1 class="post-header">Kahn's Algorithm</h2>
 
-    <p class="ptext"> Start by identifying all the nodes that have no
+    <p class="ptext"> <span class="drop-cap">S</span>tart by identifying all the nodes that have no
     dependencies (incoming edges), and add those nodes to the
     <i>candidates</i> stack.</p>
 
@@ -31,9 +31,9 @@
       <div class="figlabel"><strong>Fig 1.</strong> Initializing candidates to process</div>
     </div>
 
-    <p class="ptext">For every candidate, remove each of the candidate's
+    <p class="ptext">For every <span class="yellow-indicator">candidate</span>, remove each of the candidate's
     outgoing edges from the graph, then add the candidate to the
-    solution. When you remove a candidate's edge, if the child node the
+    <span class="green-indicator">solution</span>. When you remove a candidate's edge, if the child node the
     edge is connected to has no incoming edges, then add it to the
     <i>candidates</i> stack.</p>
 

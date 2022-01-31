@@ -11,7 +11,12 @@ a:visited {
 
 }
 
+html, body {
+  overflow-x: hidden; /* stop scrolling */
+}
+
 body {
+  position: relative; /* necessary for stopping scrolling */
   margin: 0px 8px;
 }
 
@@ -38,7 +43,7 @@ body {
   font-style: normal;
   font-size: 18px;
   letter-spacing: 1px;
-  padding: 4px 4px 4px 4px;
+  padding: 4px 4px 7px 4px;
   text-align: center;
   color: white;
   /*background: hsl(0deg 83% 61%); */
@@ -54,6 +59,7 @@ body {
   .header-seperator {
     max-width: 730px;
     font-size: 27px;
+    padding: 4px 4px 8px 4px;
   }
 }
 
@@ -65,29 +71,32 @@ body {
   margin-bottom: 0px;
   margin-left: auto;
   max-width: 420px;
-  padding: 0px 8px;
+  padding: 0px 20px;
 }
 
 .post-header {
   font-size: 30px;
   font-family: Georgia, Helvetica, sans-serif;
   font-weight: 500;
-  margin: 20px 0px 12px 0px;
+  margin: 20px 0px 12px -1px;
 }
 
 .section-header {
   font-size: 20px;
   font-family: 'Lato', sans-serif;
   font-weight: 700;
-  margin: 20px 0px 12px 0px;
+  margin: 20px 0px 10px -1px;
 }
 
 .ptext {
   color: black;
-  margin: 0 0 15px;
-  line-height: 1.55;
+  margin: 0 0 20px;
+  /* line-height: 1.55; */
+  line-height: 26px;
   font-size: 16px;
   font-family: Georgia, Helvetica, sans-serif;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .figlabel {
@@ -103,29 +112,43 @@ body {
 @media (min-width: 600px) {
   .post-container {
     max-width: 730px;
-    padding: 0px 16px;
+    padding: 0px 30px;
   }
 
   .post-header {
     max-width: 730px;
     font-size: 45px;
-    margin: 25px 0px 15px 0px;
+    margin: 25px 0px 15px -1px;
   }
 
   .section-header {
     font-size: 37px;
-    margin: 25px 0px 15px 0px;
+    margin: 25px 0px 12px -1px;
   }
 
   .ptext {
     font-size: 19px;
-    margin: 0 0 22px;
+    margin: 0 0 25px;
+    line-height: 31px;
   }
 
   .figlabel {
     font-size: 18px;
     margin: 8px auto 24px auto;
   }
+}
+
+.drop-cap {
+  font-size: 140%;
+  padding-right: 1px;
+}
+
+.yellow-indicator {
+  border-bottom: 2px solid #ffe155;
+}
+
+.green-indicator {
+  border-bottom: 2px solid #83cf86;
 }
 
 
@@ -426,6 +449,18 @@ video {
   .home-container {
     max-width: 730px;
   }
+}
+
+#posts-topic {
+  min-width: 50px;
+}
+
+#about-topic {
+  min-width: 57px;
+}
+
+#contact-topic {
+  min-width: 71px;
 }
 
 
