@@ -74,6 +74,31 @@
     <div id="slides-comp-5"></div>
     <div style="height: 100px;"></div>
 
+    <!-- SLIDER TEST -->
+    <div id="slider-01" style="border: 1px solid black;">
+      <!-- CONTENT -->
+      <div class="content" style="width:378; height: 244px; position: relative;">
+        <img id="abc-0" class="slides-slide" src="./slides-0.png"></img>
+        <img id="abc-1" class="slides-slide hidden" src="./slides-1.png"></img>
+        <img id="abc-2" class="slides-slide hidden" src="./slides-2.png"></img>
+        <img id="abc-3" class="slides-slide hidden" src="./slides-3.png"></img>
+        <img id="abc-4" class="slides-slide hidden" src="./slides-4.png"></img>
+        <img id="abc-5" class="slides-slide hidden" src="./slides-5.png"></img>
+        <img id="abc-6" class="slides-slide hidden" src="./slides-6.png"></img>
+        <img id="abc-7" class="slides-slide hidden" src="./slides-7.png"></img>
+        <img id="abc-8" class="slides-slide hidden" src="./slides-8.png"></img>
+        <img id="abc-9" class="slides-slide hidden" src="./slides-9.png"></img>
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="controls">
+        <div class="track" style="width: 378px; height: 50px; background-color: gray;">
+          <div class="slider" style="width: 50px; height:50px; background-color: black;"></div>
+        </div>
+      </div>
+    </div>
+    <div style="height: 100px;"></div>
+
   </div>
 
   <!-- PAGE JS Imports -->
@@ -101,6 +126,118 @@
 
     new VideoPlayer(1, vid1Data).spawn("vid-comp-1");
     new VideoPlayer(2, vid1Data).spawn("vid-comp-2");
+
+    /////////////////
+    // Slider
+    /////////////////
+    let progress = 0.0;
+    let mouseSliderOffset = null;
+    let currentSlideIdx = 0;
+
+    function getSliderRect() {
+      let el = document.querySelector("#slider-01 .slider");
+      return el.getBoundingClientRect();
+    }
+
+    function getTrackRect() {
+      let el = document.querySelector("#slider-01 .track");
+      return el.getBoundingClientRect();
+    }
+
+    function calculateProgress() {
+      let sliderRect = getSliderRect();
+      let trackRect = getTrackRect();
+      let sliderTrackOffset = sliderRect.left - trackRect.left;
+      let trackWidth = trackRect.right - trackRect.left;
+      let sliderWidth = sliderRect.right - sliderRect.left;
+      let progress = Math.min(
+        1.0,
+        Math.max(0.0, sliderTrackOffset / (trackWidth - sliderWidth))
+      );
+      return progress;
+    }
+
+    function calculatePosition(mouseX) {
+        let trackRect = getTrackRect();
+        let mouseTrackOffset = mouseX - trackRect.left;
+        // let mouseSliderOffset = this.mouseSliderOffset
+        let position = mouseTrackOffset - mouseSliderOffset
+        return position;
+    }
+
+    function getMouseX(event) {
+      if (event.type.toLowerCase().startsWith("mouse")) {
+        return event.clientX; // XXX: Want this one???
+      } else {
+        return event.touches[0].clientX;
+      }
+    }
+
+    function onMouseDown(event) {
+      console.log(event);
+      let mouseX = getMouseX(event);
+      // event.stopPropagation();
+      console.log("mouseX", mouseX);
+      let sliderRect = getSliderRect();
+      // this.mouseSliderOffset = mouseX - sliderRect.left;
+      mouseSliderOffset = mouseX - sliderRect.left;
+    }
+
+    function onMouseUp(event) {
+      // this.mouseSliderOffset = null;
+      mouseSliderOffset = null;
+    }
+
+    function swapSlide(toShowIdx) {
+      let currentSlide = document.querySelector("#abc-" + currentSlideIdx);
+      let newSlide = document.querySelector("#abc-" + toShowIdx);
+      console.log("swap", currentSlideIdx, toShowIdx);
+      newSlide.classList.remove("hidden");
+      currentSlide.classList.add("hidden");
+      currentSlideIdx = toShowIdx;
+    }
+
+    function onProgressUpdate() {
+      // console.log("Progress was updated", progress);
+      let numSlides = 10;
+      let slideIdx = Math.floor(Math.min(0.999, progress) * numSlides);
+      if (currentSlideIdx !== slideIdx) {
+        swapSlide(slideIdx);
+      }
+      //let el = document.querySelector("#slider-01 .content");
+      // el.innerHTML = slideIdx;
+    }
+
+    function onMouseMove(event) {
+      if (mouseSliderOffset === null) {
+        return;
+      }
+      // console.log(event);
+
+      // move slider
+      let mouseX = getMouseX(event);
+      let newPosition = calculatePosition(mouseX);
+      let el = document.querySelector("#slider-01 .slider");
+      el.style.marginLeft = newPosition + 'px';
+      // console.log("new position", newPosition + 'px');
+      // XXX set margin/x of slider element
+
+      progress = calculateProgress();
+      // this.progress = x...
+
+      onProgressUpdate();
+    }
+
+    let sliderButton = document.querySelector("#slider-01 .slider");
+
+    sliderButton.addEventListener('mousedown', (event) => {onMouseDown(event)});
+    sliderButton.addEventListener('touchstart', (event) => {onMouseDown(event)});
+
+    document.addEventListener('mouseup', (event) => {onMouseUp(event)});
+    document.addEventListener('touchend', (event) => {onMouseUp(event)});
+
+    document.addEventListener('mousemove', (event) => {onMouseMove(event)});
+    document.addEventListener('touchmove', (event) => {onMouseMove(event)});
 
   </script>
 
