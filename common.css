@@ -533,7 +533,7 @@ video {
 
 .slidesviewer img {
   position: relative;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .slidesviewer .overlay-hit {
@@ -574,11 +574,6 @@ video {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-}
-
-.slidesviewer img {
-  max-width:100%;
-  max-width:100%;
 }
 
 .slidesviewer-controls {
