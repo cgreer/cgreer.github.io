@@ -557,6 +557,7 @@ video {
   height: 100%;
   width: 30%;
   cursor: pointer;
+  touch-action: none; /* no select or dbl tap zoom */
 
   display: flex;
   flex-direction: row;
@@ -612,7 +613,7 @@ video {
   border-radius: 6px;
   margin-top: 13px;
 
-  /* Disable drag on mobile*/
+  /* Disable drag on mobile (and dbl tap zoom?)*/
    touch-action: none;
    cursor: pointer;
 }
