@@ -175,7 +175,6 @@ class SlidesViewer extends Component {
     let html = '\n' +
     '<div class="overlay-hit">' +
       '\n<div class="hit-l no-highlights">' +
-
         '\n<div class="indicator-container">' +
           '\n<div class="click-next-anim">' +
             '\n<div class="pointer-frame">' +
@@ -187,12 +186,11 @@ class SlidesViewer extends Component {
           '\n</div>' +
           '\n<div class="next-text">Prev</div>' +
         '\n</div>' +
-
       '\n</div>' +
 
       '\n<div class="hit-c"></div>' +
-      '\n<div class="hit-r no-highlights">' +
 
+      '\n<div class="hit-r">' +
         '\n<div class="indicator-container">' +
           '\n<div class="click-next-anim">' +
             '\n<div class="pointer-frame">' +
@@ -204,7 +202,6 @@ class SlidesViewer extends Component {
           '\n</div>' +
           '\n<div class="next-text">Next</div>' +
         '\n</div>' +
-
       '\n</div>' +
     '\n</div>';
     return html;
