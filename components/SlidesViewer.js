@@ -174,7 +174,7 @@ class SlidesViewer extends Component {
   buildViewerHitHtml() {
     let html = '\n' +
     '<div class="overlay-hit">' +
-      '\n<div class="hit-l">' +
+      '\n<div class="hit-l no-highlights">' +
 
         '\n<div class="indicator-container">' +
           '\n<div class="click-next-anim">' +
@@ -191,7 +191,7 @@ class SlidesViewer extends Component {
       '\n</div>' +
 
       '\n<div class="hit-c"></div>' +
-      '\n<div class="hit-r">' +
+      '\n<div class="hit-r no-highlights">' +
 
         '\n<div class="indicator-container">' +
           '\n<div class="click-next-anim">' +
