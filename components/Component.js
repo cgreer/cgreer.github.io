@@ -1,7 +1,14 @@
 
 class Component {
 
+  constructor() {
+    this.rootContainerId = null;
+  }
+
   spawn(containerId) {
+
+    // Set rootContainerId
+    this.rootContainerId = containerId
 
     // Replace/add html to container
     document.getElementById(containerId).innerHTML = this.buildHtml();

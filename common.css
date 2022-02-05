@@ -20,6 +20,10 @@ body {
   margin: 0px 8px;
 }
 
+.pause-animation {
+  animation-play-state:paused;
+}
+
 .aligncenter {
   display: block;
   margin-top: 0 px;
@@ -75,10 +79,31 @@ body {
 }
 
 .post-header {
+  text-align: center;
   font-size: 30px;
   font-family: Georgia, Helvetica, sans-serif;
   font-weight: 500;
-  margin: 20px 0px 12px -1px;
+  margin: 20px 0px 0px 0px;
+}
+
+.post-subheader {
+  text-align: center;
+  font-size: 17px;
+  font-family: Times, Helvetica, sans-serif;
+  font-weight: 100;
+  font-style: italic;
+  /* font-weight: 500; */
+  margin-top: 3px;
+  margin-bottom: 24px;
+  max-width: 300px;
+}
+
+@media (min-width: 600px) {
+  .post-subheader {
+    font-size: 21px;
+    max-width: 430px;
+  margin-top: 0px;
+  }
 }
 
 .section-header {
@@ -99,13 +124,17 @@ body {
   hyphens: auto;
 }
 
+.ptext.beforefig {
+  margin: 0 0 15px;
+}
+
 .figlabel {
   text-align: center;
   color: black;
   font-size: 12px;
   font-family: Georgia, Helvetica, sans-serif;
   font-style: italic;
-  margin: 4px auto 20px auto;
+  margin: 8px auto 20px auto;
   font-weight: 300;
 }
 
@@ -118,7 +147,7 @@ body {
   .post-header {
     max-width: 730px;
     font-size: 45px;
-    margin: 25px 0px 15px -1px;
+    margin: 25px 0px 5px -1px;
   }
 
   .section-header {
@@ -132,9 +161,13 @@ body {
     line-height: 31px;
   }
 
+  .ptext.beforefig {
+    margin: 0 0 10px;
+  }
+
   .figlabel {
     font-size: 18px;
-    margin: 8px auto 24px auto;
+    margin: 11px auto 24px auto;
   }
 }
 
@@ -471,8 +504,8 @@ video {
 .slides-cont {
   position: relative;
 
-  width: 378px;
-  height: 244px;
+  width: 100%;
+  height: 100%;
 }
 
 .slides-slide {
@@ -488,8 +521,309 @@ video {
 }
 
 /*****************/
-/* SLIDEPLAYER */
+/* SlidesViewer */
 /*****************/
+
+.slidesviewer {
+  position: relative;
+  margin: 0 auto;
+  user-select: none;
+  width: 85%;
+}
+
+.slidesviewer img {
+  position: relative;
+  margin: 0 auto;
+}
+
+.slidesviewer .overlay-hit {
+  position: absolute;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+}
+
+.slidesviewer .overlay-hit .hit-l {
+  height: 100%;
+  width: 30%;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.slidesviewer .overlay-hit .hit-c {
+  height: 100%;
+  width: 40%;
+}
+
+.slidesviewer .overlay-hit .hit-r {
+  height: 100%;
+  width: 30%;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.slidesviewer img {
+  max-width:100%;
+  max-width:100%;
+}
+
+.slidesviewer-controls {
+  position: relative;
+  margin: 0 auto;
+  width: 85%;
+  height: 31px;
+
+  /* element and descendants unselectable */
+  user-select: none;
+
+  border-radius: 0px 0px 4px 4px;
+  /* background: #aaaaaa; */
+  /* background: hsla(215, 11%, 56%, .12); */
+
+  /*
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  */
+}
+
+.slidesviewer-controls .track-bar {
+  position: absolute;
+  z-index: 0;
+
+  width: 100%;
+  height: 12%;
+  /* background: #454545; */
+  background: #dbdee1;
+  border-radius: 6px;
+  margin-top: 13px;
+
+  /* Disable drag on mobile*/
+   touch-action: none;
+   cursor: pointer;
+}
+
+.slidesviewer-controls .slider {
+  position: absolute;
+  z-index: 1;
+
+  width: 80px;
+  height: 30px;
+  /* background: hsla(215, 11%, 56%, .12); */
+  background: #f0f1f3;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  /* Disable drag on mobile*/
+   touch-action: none;
+   cursor: pointer;
+}
+
+.slidesviewer-controls .slider .arrow {
+  width: 10px;
+  height: 20px;
+}
+
+.slidesviewer-controls .slider .arrow.left {
+  padding-left: 5px;
+}
+
+.slidesviewer-controls .slider .arrow.right {
+  padding-right: 5px;
+}
+
+.slidesviewer-controls .slider .progress {
+  width: 50px;
+  height: 20px;
+  font-family: 'Lato', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 11px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*****************/
+/* Animation test
+/*****************/
+
+@keyframes scaleDown {
+    0% {
+        transform: scale(1.00);
+    }
+    15% {
+        transform: scale(0.80);
+    }
+    35% {
+        transform: scale(1.00);
+    }
+    100% {
+        transform: scale(1.00);
+    }
+}
+
+@keyframes clickFade {
+    0% {
+        opacity: 0.0;
+        animation-timing-function: step-end;
+    }
+    12% {
+        opacity: 1.0;
+    }
+    25% {
+        animation-timing-function: step-end;
+        opacity: 0.0;
+    }
+    100% {
+        opacity: 0.0;
+    }
+}
+
+@keyframes bgClick {
+    0% {
+        background: lightgray;
+        animation-timing-function: step-end;
+    }
+    12% {
+        background: gray;
+    }
+    25% {
+        background: lightgray;
+        animation-timing-function: step-end;
+    }
+    100% {
+        background: lightgray;
+    }
+}
+
+.indicator-container {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  /*padding: 50px 10px;*/
+  background: #f0f1f3;
+  border-radius: 100%;
+  margin-top: 40px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 600px) {
+  .indicator-container {
+    width: 80px;
+    height: 80px;
+    padding: 10px;
+    margin-top: 40px;
+  }
+}
+
+
+.click-next-anim {
+  position: relative;
+  height: 40px;
+  width: 40px;
+}
+
+@media (min-width: 600px) {
+  .click-next-anim {
+    height: 60px;
+    width: 60px;
+  }
+}
+
+
+.click-next-anim .pointer-frame {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.click-next-anim .pointer {
+  height: 80%;
+  width: 80%;
+  /*background: black;*/
+
+  animation-name: scaleDown;
+  animation-duration: 2.5s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: infinite;
+}
+
+.click-next-anim .click-frame {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.click-next-anim .click {
+  position: relative;
+
+  left: 15%;
+  height: 50%;
+  width: 50%;
+  /*background: red;*/
+
+  animation-name: clickFade;
+  animation-duration: 2.5s;
+  animation-timing-function: ease;
+  animation-delay: 0s;
+  animation-iteration-count: infinite; /* defaults to 1 */
+}
+
+@media (min-width: 600px) {
+  .click-next-anim .click {
+    left: 10.5%;
+  }
+}
+
+.next-text {
+  height: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #454545;
+  font-family: 'Lato', sans-serif;
+  /*background: red;*/
+}
+
+@media (min-width: 600px) {
+  .next-text {
+    height: 20px;
+    font-size: 15px;
+  }
+}
+
+
 
 /*****************/
 /* GENERIC (High priority) */
