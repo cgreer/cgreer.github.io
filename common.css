@@ -533,7 +533,7 @@ video {
 
 .slidesviewer img {
   position: relative;
-  width: 100%;
+  max-width: 100%;
 }
 
 .slidesviewer .overlay-hit {
